@@ -13,7 +13,9 @@
   <!-- 页面点击小红心 -->
   <script type="text/javascript" src="/js/src/love.js"></script>
 </head>
-
+{% if theme.leancloud_visitors.enable %}
+  	 {% include '_scripts/lean-analytics.swig' %}
+{%  endif %}
 <body itemscope itemtype="http://schema.org/WebPage" lang="{{ page.lang || page.language || config.language }}">
 
   {% set container_class = "container " %}
