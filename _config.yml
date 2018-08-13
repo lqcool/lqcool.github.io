@@ -81,4 +81,5 @@ theme: next
 deploy: 
   type: git
   repository: git@github.com:LQ55/LQ55.github.io.git
+  coding: git@git.coding.net:lqcool/blog.git
   branch: master
