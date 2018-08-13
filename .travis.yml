@@ -36,4 +36,4 @@ branches:
 env:
  global:
    - GH_REF: github.com/LQ55/LQ55.github.io.git
-   - CO_REF: git@git.coding.net:lqcool/blog.git
+   - CO_REF: git.coding.net/lqcool/blog.git
