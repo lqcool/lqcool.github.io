@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="LESS学习笔记Less是一门CSS预处理语言，它扩展了CSS，增加了变量、Mixin、函数等特性，使得CSS更加易于维护和扩展。Less可以运行在Node或者浏览器环境。     Less嵌套规则 Less支持嵌套规则，style.less文件内容如下： 1234567891011.container&amp;#123;    .header&amp;#123;        border:1px solid">
+<meta name="keywords" content="blog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LESS学习笔记">
+<meta property="og:url" content="http://yoursite.com/2018/08/15/less学习笔记/index.html">
+<meta property="og:site_name" content="CODE_LIFE">
+<meta property="og:description" content="LESS学习笔记Less是一门CSS预处理语言，它扩展了CSS，增加了变量、Mixin、函数等特性，使得CSS更加易于维护和扩展。Less可以运行在Node或者浏览器环境。     Less嵌套规则 Less支持嵌套规则，style.less文件内容如下： 1234567891011.container&amp;#123;    .header&amp;#123;        border:1px solid">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-15T04:10:09.368Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LESS学习笔记">
+<meta name="twitter:description" content="LESS学习笔记Less是一门CSS预处理语言，它扩展了CSS，增加了变量、Mixin、函数等特性，使得CSS更加易于维护和扩展。Less可以运行在Node或者浏览器环境。     Less嵌套规则 Less支持嵌套规则，style.less文件内容如下： 1234567891011.container&amp;#123;    .header&amp;#123;        border:1px solid">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/15/less学习笔记/"/>
+
+
+
+
+
+  <title>LESS学习笔记 | CODE_LIFE</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2188cdc93b6b2500ed3178182eacc884";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+</head>
+
+  	 <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("pHNi4xG9QkdEclsNcORxGaWQ-gzGzoHsz", "rFsXPfGddrWoczvBg0lrQJW6");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+});
+</script>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CODE_LIFE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">LQ55的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/15/less学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LQ55">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/HEAD.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CODE_LIFE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">LESS学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-15T04:10:09+00:00">
+                2018-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端相关技术/" itemprop="url" rel="index">
+                    <span itemprop="name">前端相关技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/15/less学习笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/08/15/less学习笔记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/08/15/less学习笔记/" class="leancloud_visitors" data-flag-title="LESS学习笔记">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="LESS学习笔记"><a href="#LESS学习笔记" class="headerlink" title="LESS学习笔记"></a>LESS学习笔记</h2><p>Less是一门CSS预处理语言，它扩展了CSS，增加了变量、Mixin、函数等特性，使得CSS更加易于维护和扩展。Less可以运行在Node或者浏览器环境。    </p>
+<p><strong>Less嵌套规则</strong></p>
+<p>Less支持嵌套规则，style.less文件内容如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">    <span class="selector-class">.header</span>&#123;</span><br><span class="line">        <span class="attribute">border</span>:<span class="number">1px</span> solid red;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-class">.body</span>&#123;</span><br><span class="line">        <span class="attribute">height</span>:<span class="number">400px</span>;</span><br><span class="line">        <span class="selector-class">.header</span>&#123;</span><br><span class="line">           	<span class="attribute">background</span>:red;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行lessc style.less style.css命令编译后</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> <span class="selector-class">.header</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> <span class="selector-class">.body</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> <span class="selector-class">.body</span> <span class="selector-class">.header</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Less操作</strong></p>
+<p>LESS支持一些算术运算，例如加号(+)，减号( - )，乘法(*)和除法(/)，它们可以对任何数字，颜色或变量进行操作。 </p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@fontSize:</span> <span class="number">10px</span>;</span><br><span class="line"><span class="selector-class">.myclass</span> &#123;</span><br><span class="line"> <span class="attribute">font-size</span>: <span class="variable">@fontSize</span> * <span class="number">2</span>;<span class="comment">/*编译后，这里会变成font-size:20px*/</span></span><br><span class="line"> <span class="attribute">color</span>:green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Less转义</strong></p>
+<p>它动态构建选择器，并使用属性或变量值作为任意字符串。 </p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="string">~"green"</span>;<span class="comment">/*经过转义，变成color:green*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在将LESS代码编译为CSS代码之后，〜“some_text”中的任何内容将显示为 some_text  </p>
+<p><strong>Less函数</strong></p>
+<p>LESS映射具有值操作的JavaScript代码，并使用预定义的函数来操纵样式表中的HTML元素。 它提供了操作颜色的几个功能，如圆函数，floor函数，ceil函数，百分比函数等。</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@color:</span> <span class="number">#FF8000</span>;</span><br><span class="line"><span class="variable">@width:</span><span class="number">1.0</span>;</span><br><span class="line"><span class="selector-class">.mycolor</span>&#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="variable">@color</span>;</span><br><span class="line">  <span class="attribute">width</span>: percentage(<span class="variable">@width</span>);<span class="comment">/*这里的函数percentage是百分比函数，转化后为width:100%;*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Less变量范围</strong></p>
+<p>变量范围指定可用变量的位置。 变量将从本地作用域搜索，如果它们不可用，则编译器将从父作用域搜索。 （从子到父）</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@var:</span> <span class="variable">@a</span>;</span><br><span class="line"><span class="variable">@a:</span> <span class="number">15px</span>;</span><br><span class="line"><span class="selector-class">.myclass</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="variable">@var</span>;</span><br><span class="line">  <span class="variable">@a:</span><span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">color</span>: green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>转化后的css代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.myclass &#123;</span><br><span class="line">  font-size: 20px;</span><br><span class="line">  color: green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Less导入</strong></p>
+<p>通过@import “less或者css路径” 导入less或者css，下面是myfile.less</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.myclass</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#FF8000</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.myclass1</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#5882FA</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在style.less中使用@import “/myfile.less”导入myfile.less的内容</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> <span class="string">"/myfile.less"</span>;</span><br><span class="line"><span class="selector-class">.myclass2</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="attribute">color</span>: <span class="number">#FF0000</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后通过编译后得到结果如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.myclass</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#FF8000</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.myclass1</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#5882FA</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.myclass2</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#FF0000</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Less变量</strong></p>
+<p>Less定义变量的语法为 ：@变量名称:变量值</p>
+<p>1、变量插值（就是将表达式中的变量替换为变量值的过程）</p>
+<p>变量插值是评估包含一个或多个变量的表达式或文字的过程，产生其中变量用其对应值替换的输出。</p>
+<p>便改良使用的地方有：选择器名称，属性名称，URL和@import语句。 </p>
+<p>（1）变量用于less选择器</p>
+<p>选择器可以引用任何变量，它是在编译时构建的。 变量名称必须放在用<strong>@</strong>符号前缀的花括号（<strong>{}</strong>）内。 </p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@selector:</span>h2;</span><br><span class="line"><span class="variable">@&#123;selector&#125;</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>:<span class="number">#2ECCFA</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（2）变量用于less URL</p>
+<p>变量可以用于保存URL，如下所示</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@images:</span><span class="string">"http://www.w3school.cn"</span>;</span><br><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">    <span class="attribute">background</span>:url(<span class="string">"@&#123;images&#125;/less/images/less_variables/birds.jpg"</span>);</span><br><span class="line">    <span class="comment">/*这里编译后为：background:url("http://www.w3school.cn/less/images/less_variables/birds.jpg")*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（3）变量用于less import语句</p>
+<p>import语句可以具有保存路径的变量。当你引用一个普通的父目录时，这是非常有用的。</p>
+ <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@basePath:</span><span class="string">"//www.w3school.cn/less"</span>;<span class="comment">/*这里的变量用于保存一个基础路径*/</span></span><br><span class="line"><span class="keyword">@import</span> <span class="string">"@&#123;basePath&#125;/external1.less"</span>;<span class="comment">/*在@import 与语句中引用basePath变量*/</span></span><br><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">    <span class="attribute">background</span>:red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（4）变量可以由属性引用</p>
+<p>变量可以由属性引用。 使用由属性引用的变量的例子</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@my-property:</span>color;</span><br><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">    <span class="selector-tag">background-</span><span class="variable">@&#123;my-property&#125;</span>:<span class="selector-id">#81F7D8</span>;<span class="comment">/*经过编译形成的结果为：background-color: #81F7D8;*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2、变量名称</p>
+<p>可以定义变量名称由一个值组成的变量，下面的就是使用变量保存另外一个变量</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">    <span class="variable">@col:</span>blue;</span><br><span class="line">    <span class="variable">@color:</span><span class="string">"col"</span>;</span><br><span class="line">    <span class="attribute">background-color</span>:<span class="variable">@@color</span>;<span class="comment">/*这里的color就@color就保存了另外一个变量的名称，所以通过@color取出名称col，然后又加一个@从col中取值*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、延迟加载</p>
+<p>在延迟加载中，即使它们尚未声明，也可以使用变量</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">    <span class="attribute">font-size</span>:<span class="variable">@size</span>;<span class="comment">/*虽然@size在后面声明的，但是这里依然可以使用，最终为font-size:14px;*/</span></span><br><span class="line">    <span class="attribute">color</span>:red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">@size:</span><span class="variable">@b</span>;</span><br><span class="line"><span class="variable">@b:</span><span class="number">14px</span>;</span><br></pre></td></tr></table></figure>
+<p>4、默认值</p>
+<p>默认变量只有在尚未设置时才能设置变量。此功能不是必需的，因为变量可以很容易地通过定义它们后覆盖。 后面定义的变量会覆盖前面申明的相同名称的变量。</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> <span class="string">"//www.w3cschool.cn/less/lib.less"</span>; <span class="comment">//第一次声明变量 @color，</span></span><br><span class="line"><span class="variable">@color:</span> green; <span class="comment">// 在这里申明了一个和引入的.less文件相同的变量，这里会覆盖前面的</span></span><br><span class="line"><span class="selector-tag">p</span>&#123;</span><br><span class="line"> <span class="attribute">color </span>: <span class="variable">@color</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Less扩展 :extend</strong></p>
+<p>Extend是一个less伪类，他将<strong>所放置它的选择器</strong>与<strong>匹配引用的选择器</strong>进行合并，通过使用:extend选择器在一个选择器中扩展其它选择器样式，示例如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;<span class="comment">// .container 所放置它的选择器</span></span><br><span class="line">    <span class="selector-tag">&amp;</span><span class="selector-pseudo">:extend(.style)</span>;<span class="comment">//.style 匹配引用的选择器</span></span><br><span class="line">    <span class="attribute">font-style</span>:italic;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.style</span>&#123;</span><br><span class="line">    <span class="attribute">background</span>:green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>经过编译后转换为css文件为</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">    <span class="attribute">font-style</span>:italic;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span>,<span class="selector-class">.style</span>&#123;</span><br><span class="line">    <span class="attribute">background</span>:green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通常Less扩展语法有如下一些：扩展附加到选择器、扩展内部规则集、扩展嵌套选择器、完全匹配与扩展、nth表达式、扩展”all”、选择器插值扩展、@media中的范围/扩展、重复检测。</p>
+<p>（1）扩展连接到一个选择器</p>
+<p>它看起来类似于具有选择器作为参数的伪类。 当规则集具有许多选择器时，则关键字扩展可以应用于任何选择器。 下面是定义代码中extend的格式</p>
+<ul>
+<li>在选择器之后扩展。  [例如：pre:hover<strong>:extend(div pre)</strong>]</li>
+<li>允许选择器和扩展之间的空格[例如：pre:hover :extend(div pre)]</li>
+<li>允许多个扩展。[例如：pre:hover:extend(div pre):extend(.bucket tr)或者pre:hover:extend(div pre,.bucket tr)]</li>
+<li>扩展必须在选择器的末尾定义。<strong>pre:hover:extend(div pre) .nth-child(odd)类型不允许</strong></li>
+</ul>
+<p>一个扩展连接到选择器的例子：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.style</span>,<span class="selector-tag">container</span><span class="selector-pseudo">:extend(.img)</span>&#123;</span><br><span class="line">    <span class="attribute">background</span>:red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.img</span>&#123;</span><br><span class="line">    <span class="attribute">font-size</span>:<span class="number">20px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码经过编译以后得到如下结果（对.containe进行了扩展）</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.style</span>,</span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.img</span>,</span><br><span class="line"><span class="selector-class">.container</span> &#123;<span class="comment">/*这是对.container的扩展后的结果*/</span></span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（2）Less扩展内部规则集&amp;:extend</p>
+<p>&amp;:extend(selector)语法可以放在规则集的正文中。它是放置扩展到规则集的每个选择器的快捷方式。</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>,<span class="selector-class">.style</span>&#123;</span><br><span class="line">    <span class="selector-tag">&amp;</span><span class="selector-pseudo">:extend(.img)</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.img</span>&#123;</span><br><span class="line">    <span class="attribute">font-style</span>:italic;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>扩展后编译的结果为</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.img</span>,</span><br><span class="line"><span class="selector-class">.container</span>,</span><br><span class="line"><span class="selector-class">.style</span> &#123;</span><br><span class="line">  <span class="attribute">font-style</span>: italic;<span class="comment">/*.container和.style都扩展了.img的规则集*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（3）Less完全匹配与扩展</p>
+<p>默认情况下， extend 查找选择器之间的完全匹配。 对于具有相同含义的两个第n个表达式，扩展无关紧要，但它只寻找与为选择器匹配定义的相同的顺序形式。 </p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.style</span> <span class="selector-tag">h3</span>,</span><br><span class="line"><span class="selector-tag">h3</span> <span class="selector-class">.style</span>&#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#BF70A5</span>;</span><br><span class="line">  <span class="attribute">font-style</span>: italic;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.img</span><span class="selector-pseudo">:extend(.style</span> <span class="selector-tag">h3</span>)&#123;<span class="comment">/*如果这里再加一个扩展.img:extend(.tyle h3):extend(h3 .style) 那么编译后.img会出现两次，并且h3 .style需要与前面的选择器完全匹配，如果前面的选择器中间没有空格，也就是h3.style，那么扩展操作里面也不应该有空格，不然会找不到扩展的选择器*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译后的结果为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.style h3,</span><br><span class="line">h3 .style,</span><br><span class="line">.img &#123;</span><br><span class="line">  color: #BF70A5;</span><br><span class="line">  font-style: italic;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（4）Less的nth表达式</p>
+<p>nth表达式的形式在扩展中很重要，否则它将选择器视为不同。 nth表达式1n + 2和n + 2是等效的，但扩展将该表达式视为不同。 </p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:nth-child(n+2)</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>:red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.child</span><span class="selector-pseudo">:extend(</span><span class="selector-pseudo">:nth-child(n+2))</span>&#123;&#125;;<span class="comment">/*如果这里使用:nth-child(1n+2)，编译的时候会报:nth-child(1n+2)没有找到*/</span></span><br></pre></td></tr></table></figure>
+<p>在属性选择器中，引用类型不重要，你可以在下面示例中看到他</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[title=tutorialspoint]</span>&#123;</span><br><span class="line">    <span class="attribute">font-size</span>:<span class="number">12px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-attr">[title='tutorialspoint']</span> &#123;</span><br><span class="line"> <span class="attribute">font-style</span>: italic;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-attr">[title="tutorialspoint"]</span> &#123;</span><br><span class="line">  <span class="attribute">font-style</span>: italic;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.style</span><span class="selector-pseudo">:extend(</span><span class="selector-attr">[title=tutorialspoint]</span>) &#123;&#125;</span><br><span class="line"><span class="selector-class">.container</span><span class="selector-pseudo">:extend(</span><span class="selector-attr">[title='tutorialspoint']</span>) &#123;&#125;</span><br><span class="line"><span class="selector-class">.img</span><span class="selector-pseudo">:extend(</span><span class="selector-attr">[title="tutorialspoint"]</span>) &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>编译后的结果为</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[title=tutorialspoint]</span>,</span><br><span class="line"><span class="selector-class">.style</span>,</span><br><span class="line"><span class="selector-class">.container</span>,</span><br><span class="line"><span class="selector-class">.img</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-attr">[title='tutorialspoint']</span>,</span><br><span class="line"><span class="selector-class">.style</span>,</span><br><span class="line"><span class="selector-class">.container</span>,</span><br><span class="line"><span class="selector-class">.img</span> &#123;</span><br><span class="line">  <span class="attribute">font-style</span>: italic;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-attr">[title="tutorialspoint"]</span>,</span><br><span class="line"><span class="selector-class">.style</span>,</span><br><span class="line"><span class="selector-class">.container</span>,</span><br><span class="line"><span class="selector-class">.img</span> &#123;</span><br><span class="line">  <span class="attribute">font-style</span>: italic;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（5）LESS 扩展“all”</p>
+<p>当最后在扩展参数中标识关键字 all 时，LESS将该选择器作为另一个选择器的一部分。 匹配的选择器部分将被extend替换，形成一个新的选择器。 （<strong>理解起来有点困难，直接上代码</strong>）</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="selector-tag">&amp;</span><span class="selector-pseudo">:extend(.b</span> <span class="keyword">all</span>);&#123;<span class="comment">/*当在less的继承关系中，需要伪类的时候 可以使用&amp; 表示自己，这里就是表示a，否则默认是表示子代；有 &amp; 时解析的是同一个元素或此元素的伪类，没有 &amp; 解析是后代元素*/</span></span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.b</span>&#123;</span><br><span class="line">    <span class="attribute">font-weight</span>: <span class="number">700</span>;</span><br><span class="line">    <span class="attribute">color</span>: yellow;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.b</span><span class="selector-pseudo">:hover</span>&#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">2em</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译后的代码为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>:<span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">border-bottom</span>:<span class="number">2px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*扩展将.b的所有扩展到a中*/</span></span><br><span class="line"><span class="selector-class">.b</span>,<span class="selector-tag">a</span>&#123;</span><br><span class="line">    <span class="attribute">font-weight</span>: <span class="number">700</span>;</span><br><span class="line">    <span class="attribute">color</span>: yellow;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span>,<span class="selector-class">.b</span><span class="selector-pseudo">:hover</span>&#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">2em</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（6）LESS 选择器插值扩展</p>
+<p>@ {variable} 符号用作变量名，id和类名的一部分。 扩展不具有使选择器与变量匹配的能力。 扩展可以连接到内插选择器。 </p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.style</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#BF70A5</span>;</span><br><span class="line">  <span class="attribute">font-style</span>: italic;</span><br><span class="line">&#125;</span><br><span class="line"><span class="attribute">@&#123;variable&#125;</span>:extend(.style) &#123;&#125;</span><br><span class="line"><span class="variable">@variable:</span> .selector;</span><br></pre></td></tr></table></figure>
+<p>编译后的结果为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.style</span>,</span><br><span class="line"><span class="selector-class">.selector</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#BF70A5</span>;</span><br><span class="line">  <span class="attribute">font-style</span>: italic;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>LESS 重复检测：它不能检测选择器的重复。</p>
+<p><strong>LESS混合</strong>（相当于编程语言中的函数）</p>
+<p>语法为   .函数名(){规则列表} 或者 #函数名(){规则列表}</p>
+<p>混合类似于编程语言中的函数。 Mixins是一组CSS属性，允许您将一个类的属性用于另一个类，并且包含类名作为其属性。 在LESS中，可以使用类或<a href="https://www.w3cschool.cn/eyv2f3/68m11qba.html" target="_blank" rel="noopener">id选择器</a>以与CSS样式相同的方式声明mixin。 它可以存储多个值，并且可以在必要时在代码中重复使用。 </p>
+<p>下面说明LESS mixin的简单使用</p>
+<p>（1）不输出mixin</p>
+<p>可以创建一个mixin，它可以通过简单地放置括号后在输出中消失。 如下所示</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.a</span>()&#123;</span><br><span class="line">    <span class="attribute">padding-left</span>:<span class="number">100px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">    <span class="attribute">border</span>:<span class="number">1px</span> solid red;</span><br><span class="line">    <span class="selector-class">.a</span>();<span class="comment">/*这里直接放置.a也能够达到效果（reason?）*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>变异的结果为</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">    <span class="attribute">border</span>:<span class="number">1px</span> solid red;</span><br><span class="line">    <span class="attribute">padding-left</span>:<span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（2）Less Mixins中的选择器</p>
+<p>minxins不仅可以包含属性，还可以包含选择器</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#mixin</span>()&#123;</span><br><span class="line">    <span class="selector-tag">&amp;</span><span class="selector-pseudo">:hover</span>&#123;</span><br><span class="line">        <span class="attribute">background</span>:red;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">a</span>&#123;</span><br><span class="line">    <span class="selector-id">#mixin</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译后的结果为</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（3）Less Mixin命名空间</p>
+<p>命名空间用于在通用名称下对mixin进行分组。 使用命名空间可以避免名称冲突，并从外部封装mixin组。示例如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#outer</span>()&#123;</span><br><span class="line">    <span class="attribute">background</span>:yellow;</span><br><span class="line">    <span class="selector-class">.inner</span>&#123;</span><br><span class="line">        <span class="attribute">color</span>:red;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">p</span>&#123;</span><br><span class="line">    <span class="selector-id">#outer</span> &gt; <span class="selector-class">.inner</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译后的结果为</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;<span class="attribute">color</span>: red;&#125;</span><br><span class="line"><span class="comment">/*当然如果上面的p里面如果不是获取.inner，直接写#outer的话，结果将会是下面的样子*/</span></span><br><span class="line"><span class="selector-tag">p</span>&#123;<span class="attribute">background</span>:yellow&#125;</span><br><span class="line"><span class="selector-tag">p</span> <span class="selector-class">.inner</span>&#123;<span class="attribute">color</span>:red&#125;</span><br></pre></td></tr></table></figure>
+<p>（4）LESS保护的命名空间</p>
+<p>当guard应用于命名空间时，只有在guard条件返回true时才使用由命名空间定义的mixin。 命名空间防护类似于mixins上的guard。</p>
+ <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> <span class="string">"./lib.less"</span>;<span class="comment">/*lib.less中的内容是拥有一个变量@color:blue*/</span></span><br><span class="line"><span class="selector-id">#namespace</span> <span class="keyword">when</span> (<span class="variable">@color</span> = blue)&#123;<span class="comment">//当这里满足条件的时候，才使用命名空间#namespace中定义的mixin</span></span><br><span class="line">    <span class="selector-class">.mixin</span>()&#123;</span><br><span class="line">        <span class="attribute">color</span>:red;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">p</span>&#123;</span><br><span class="line">    <span class="selector-id">#namespace</span> <span class="selector-class">.mixin</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译后的结果为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span>&#123;<span class="attribute">color</span>:red;&#125;</span><br></pre></td></tr></table></figure>
+<p>（5）LESS !important 关键字</p>
+<p><strong>！important</strong> 关键字用于覆盖特定属性。 当它在mixin调用之后放置时，它会将所有继承的属性标记为！important 。 </p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.mixin</span>()&#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#900</span>;</span><br><span class="line">  <span class="attribute">border</span>:<span class="number">1px</span> solid red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.para1</span>&#123;</span><br><span class="line">  <span class="selector-class">.mixin</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.para2</span>&#123;</span><br><span class="line">  <span class="selector-class">.mixin</span>() !important;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译后的结果为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.para1</span>&#123;</span><br><span class="line">  color:#900;18581203068</span><br><span class="line">  <span class="selector-tag">border</span><span class="selector-pseudo">:1px</span> <span class="selector-tag">solid</span> <span class="selector-tag">red</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.para2</span>&#123;</span><br><span class="line">  <span class="attribute">color</span>:<span class="number">#900</span> <span class="meta">!important</span>;</span><br><span class="line">  <span class="attribute">border</span>:<span class="number">1px</span> solid red <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Less混合参数</strong></p>
+<p>（1）Mixins具有多个参数</p>
+<p>参数可以使用<em>逗号</em>或<em>分号</em>分隔。 使用逗号符号，可以将其解释为mixin参数分隔符或css列表分隔符。 如果在mixin中使用分号，那么它将用分号分隔参数，CSS列表将包含所有逗号。两种使用方式如下：</p>
+<ul>
+<li>如果你有两个参数，那么它们将包含逗号分隔的列表。 例如 <strong>.class1(1，2，3; sometext，other thing)</strong>。 </li>
+<li>如果有三个参数，并且只包含数字，例如 <strong>.class1(1，2，3)</strong>。 </li>
+<li>您可以使用带有逗号分隔列表的虚拟分号，例如 <strong>.class1(1，2，3;)</strong>。 </li>
+<li>有逗号分隔的默认值。 例如 <strong>.class1(@color：gray，green;)</strong> </li>
+</ul>
+<p>用法如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.mixin</span>(<span class="variable">@color</span>)&#123;</span><br><span class="line">  <span class="attribute">color</span>:<span class="variable">@color</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.mixin</span>(<span class="variable">@color</span>;<span class="variable">@padding</span>:<span class="number">2</span>)&#123;</span><br><span class="line">  <span class="attribute">color</span>:<span class="variable">@color</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="variable">@padding</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">  <span class="selector-class">.mixin</span>(<span class="number">#fff</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译后的结果为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（2）通过命名参数提供值</p>
+<p>Mixins通过使用它们的名称提供参数值而不是位置。 参数没有放置值的任何顺序，它们可以通过名称引用。 命名参数的结果更容易阅读，并提供清晰的代码。 如下所示：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.mixin</span>(<span class="variable">@color</span>:black;<span class="variable">@fontSize</span>:<span class="number">10px</span>)&#123;</span><br><span class="line">    <span class="attribute">color</span>:<span class="variable">@color</span>;</span><br><span class="line">    <span class="attribute">font-size</span>:<span class="variable">@fontSize</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.sx1</span>&#123;</span><br><span class="line">    <span class="selector-class">.mixin</span>(<span class="variable">@font-size</span>:<span class="number">20px</span>;<span class="variable">@color</span>:<span class="number">#F59D0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.sx2</span>&#123;</span><br><span class="line">    <span class="selector-class">.mixin</span>(<span class="number">#F79F81</span>; <span class="variable">@fontSize</span>: <span class="number">20px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（3）@argument变量传递了所有的参数。 当不想使用单个参数时， @arguments 变量很有用。 如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box-shadow</span>(<span class="variable">@x</span>: <span class="number">0</span>; <span class="variable">@y</span>: <span class="number">0</span>; <span class="variable">@height</span>: <span class="number">3px</span>; <span class="variable">@width</span>: <span class="number">3px</span>) &#123;</span><br><span class="line">  <span class="attribute">-webkit-box-shadow</span>: <span class="variable">@arguments</span>;<span class="comment">/*@argument变量包括了所有的参数在里面*/</span></span><br><span class="line">     <span class="attribute">-moz-box-shadow</span>: <span class="variable">@arguments</span>;</span><br><span class="line">          <span class="attribute">box-shadow</span>: <span class="variable">@arguments</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="selector-class">.box-shadow</span>(<span class="number">2px</span>; <span class="number">2px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译后的结果为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-box-shadow</span>: <span class="number">2px</span> <span class="number">2px</span> <span class="number">3px</span> <span class="number">3px</span>;<span class="comment">/*可以看到编译后的结果@argument变量被所有的参数给替换掉了*/</span></span><br><span class="line">  <span class="attribute">-moz-box-shadow</span>: <span class="number">2px</span> <span class="number">2px</span> <span class="number">3px</span> <span class="number">3px</span>;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">2px</span> <span class="number">2px</span> <span class="number">3px</span> <span class="number">3px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（4）Less高级参数和@rest变量</p>
+<p>Mixin通过使用 <strong>…</strong> 提供可变数量的参数。 可以通过在变量名称后面放置 <strong>…</strong> 为变量赋值参数。使用的一些格式如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>代码中使用@rest变量</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.mixin</span>(<span class="variable">@x</span>; <span class="variable">@rest</span>...) &#123;</span><br><span class="line">   <span class="comment">// after the variable @a, the @rest is bound to arguments</span></span><br><span class="line">   <span class="comment">// @arguments is bound to all arguments</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Less Mixins函数</strong></p>
+<p>（1）Less Mixin范围（作用域描述）</p>
+<p>由变量和混合组成的混合可以在调用者的作用域中使用，并且是可见的。 但是有一个例外，如果调用者包含具有相同名称的变量，那么该变量不会复制到调用者的作用域中。 只有调用者范围内的变量被保护，并且继承的变量将被覆盖。 </p>
+<p>（2）Less Mixin和返回值</p>
+<p>mixin类似于函数，在mixin中定义的变量将作为它的返回值，示例如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.padding</span>(<span class="variable">@x</span>;<span class="variable">@y</span>)&#123;</span><br><span class="line">    <span class="variable">@padding:</span>((<span class="variable">@x</span>+<span class="variable">@y</span>)/<span class="number">2</span>);<span class="comment">/*@padding是在mixin中定义的变量，将会作为返回值被返回*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">    <span class="selector-class">.padding</span>(<span class="number">80px</span>,<span class="number">120px</span>);<span class="comment">/*先调用mixin，相当于对@padding变量赋值了*/</span></span><br><span class="line">    <span class="attribute">padding-left</span>:<span class="variable">@padding</span>;<span class="comment">/*这里可以使用@padding变量了，他已经有值了*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译后的结果为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">padding-left</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（3）Less mixin定义在另一个mixin中的时候，它也可以用作返回值，示例如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.outerMixin</span>(<span class="variable">@value</span>) &#123;<span class="comment">/*外层mixin*/</span></span><br><span class="line">  <span class="selector-class">.nestedMixin</span>() &#123;<span class="comment">/*里面的mixin，这个将会被作为返回值*/</span></span><br><span class="line">    <span class="attribute">font-size</span>: <span class="variable">@value</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">  <span class="selector-class">.outerMixin</span>(<span class="number">30</span>);</span><br><span class="line">  <span class="selector-class">.nestedMixin</span>();<span class="comment">/*这里必须要调用才能够取到font-size，前面一步相当于进行的.nestedMixin初始化赋值*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译后的结果如下:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">30</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>LESS将规则集传递给Mixins</strong></p>
+<p><strong>分离的规则集</strong>包含一个普通的规则集，如属性，嵌套规则集，变量声明，mixins等。<strong>它存储在一个变量中</strong>，并包含到其他结构中，其中规则集的所有属性都将被复制到该结构。</p>
+<p>范围：（作用域）</p>
+<p>分离的规则集中的所有变量和混合宏在被调用或定义的地方都可用，否则调用者和定义范围都可用。 当两个范围包含相同的mixin或variable时，声明范围获取优先级。 分离的规则集体在声明范围中定义。 在将分离的规则集从一个变量复制到另一个变量后，它不会更改其范围。 </p>
+<p>所有的范围类型如下：</p>
+<p>（1）定义和调用范围的可见性</p>
+<p>变量和mixin在分离的规则集中定义。示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@detached-rulelist:&#123;/*一个变量用于存储分离的规则集（detached分离的）*/</span><br><span class="line">    background-color: @caller-variable;</span><br><span class="line">    .caller-mixin();</span><br><span class="line">&#125;</span><br><span class="line">.cont &#123;</span><br><span class="line">  @detached-ruleset();</span><br><span class="line">  @caller-variable: #AA86EE;</span><br><span class="line">  .caller-mixin() &#123;</span><br><span class="line">    font-style:italic;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译后的结果为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cont</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#AA86EE</span>;</span><br><span class="line">  <span class="attribute">font-style</span>: italic;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（2）LESS 引用将不会修改分离的规则集范围</p>
+<p>通过仅给出引用，规则集不访问任何新的范围。（晦涩难懂查看：<a href="https://www.w3cschool.cn/less/t_modify_detached_ruleset_scope.html）" target="_blank" rel="noopener">https://www.w3cschool.cn/less/t_modify_detached_ruleset_scope.html）</a></p>
+<p>（3）LESS 解锁将修改分离Ruleset Scope</p>
+<p>分离的规则集可以通过导入到范围中来访问。（晦涩难懂查看：<a href="https://www.w3cschool.cn/less/unlocking_will_modify_detached_ruleset_scope.html）" target="_blank" rel="noopener">https://www.w3cschool.cn/less/unlocking_will_modify_detached_ruleset_scope.html）</a></p>
+<p><strong>LESS导入指令</strong></p>
+<p><strong>@import</strong> 伪指令用于在代码中导入文件。 它将LESS代码分布在不同的文件上，并允许轻松地维护代码的结构。可以将 <em>@import</em> 语句放在代码中的任何位置。 </p>
+<p>导入指令的导入取决不同的文件扩展名</p>
+<ul>
+<li>如果您使用 .css 扩展名，那么它将被视为CSS和 @import 语句保持不变。 </li>
+<li>如果它包含任何其他扩展名，那么它将被视为LESS并将被导入。 </li>
+<li>如果没有较少的扩展，那么它将被附加并包含为导入的较少文件。 </li>
+</ul>
+<p>@import指令支持导入选项，也就是在导入的时候控制导入行为，下面几个就是在import语句中实现的导入伪指令，基本的使用语法为：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span>(选项) url</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>@import(reference)</strong>，用于导入外部文件，但不会将导入的样式添加到编译的CSS文件中。 这是在版本1.5.0 中发布的。 </li>
+<li><strong>@import(inline)</strong>会将CSS复制到输出CSS文件中，而不进行处理。 当CSS文件不是LESS兼容时，这是有用的。 虽然LESS支持大多数标准CSS，但在某些地方不支持注释，并且不修改CSS，它不会支持所有已知的CSS黑客。 即使 <strong>@import(inline)</strong>不会处理CSS，它将确保所有的CSS将在一个文件中。 这是在版本1.5.0 中发布的。 </li>
+<li><strong>@import(less)</strong>会将文件导入为LESS文件，而不管文件扩展名是什么。 这是在版本1.4.0 中发布的。</li>
+<li><strong>@import(css)</strong>会将文件导入为常规CSS，而不管文件扩展名。 这是在版本1.4.0 中发布的。</li>
+<li><strong>@import(css)</strong>会将文件导入为常规CSS，而不管文件扩展名。 这是在版本1.4.0 中发布的。</li>
+<li><strong>@import(once)</strong>确保文件只导入一次，并且对该文件将忽略任何以下import语句。 这是 <strong>@import</strong>statments的默认行为。 这是在版本1.4.0 中发布的。 </li>
+<li>通过 <strong>@import(multiple)</strong>，您可以导入具有相同名称的多个文件。 这与一次完全相反。 这是在版本1.4.0 中发布的。 </li>
+<li><strong>@import (optional)</strong>可选允许您在文件不存在时导入文件。 如果要导入的文件不存在并且未使用<strong>可选</strong>关键字，则LESS会抛出 FileError 错误并停止编译。 这是在版本2.3.0 中发布的。 （防止错误发生导致不再编译）</li>
+</ul>
+<p><strong>LESS Mixin Guards</strong></p>
+<p>想在表达式上匹配简单的值或参数数量，那么你可以使用Guards。 它与mixin声明相关联，并包括附加到mixin的条件。 每个mixin将有一个或多个由逗号分隔的防护，并且guard必须括在括号中。 LESS使用Guards的mixins而不是if / else语句，并执行计算以指定匹配的mixin。 </p>
+<p>不同类型的mixins guard以及描述 :</p>
+<p>（1）LESS Guard比较运算符</p>
+<p>LESS包含五个保护比较运算符：&lt;，&gt;，&lt;=，&gt; =和=。 您可以使用比较运算符（=）来比较数字，字符串，标识符等，而剩余的运算符只能与数字一起使用。 来个示例说明一下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*下面定义了三种情况，满足情况会执行相应的mixin*/</span></span><br><span class="line"><span class="selector-class">.mixin</span> (<span class="variable">@a</span>) <span class="keyword">when</span> (<span class="variable">@a</span> = <span class="number">20px</span>)&#123;</span><br><span class="line"><span class="attribute">color</span>:red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.mixin</span> (<span class="variable">@a</span>) <span class="keyword">when</span> (<span class="variable">@a</span> &lt; <span class="number">20px</span>)&#123;</span><br><span class="line"><span class="attribute">color</span>:blue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.mixin</span> (<span class="variable">@a</span>) &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="variable">@a</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> &#123; <span class="selector-class">.mixin</span>(<span class="number">20px</span>) &#125;<span class="comment">/*传入参数20px，那么将会匹配返回20px的mixin*/</span></span><br></pre></td></tr></table></figure>
+<p>编译后的结果为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（2）Less Guard逻辑运算符</p>
+<p>可以使用关键字来解决Guard逻辑运算符。 您可以使用和关键字组合使用保护条件，并使用not关键字取消条件。 如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.mixin</span> (<span class="variable">@a</span>) <span class="keyword">when</span> (<span class="variable">@a</span> &gt; <span class="number">50%</span>) <span class="keyword">and</span> (<span class="variable">@a</span> &gt; <span class="number">5px</span>)&#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">14px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.mixin</span> (<span class="variable">@a</span>) <span class="keyword">when</span> <span class="keyword">not</span> (<span class="variable">@a</span> &lt; <span class="number">50%</span>) <span class="keyword">and</span> <span class="keyword">not</span> (<span class="variable">@a</span> &lt; <span class="number">5px</span>)&#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.mixin</span> (<span class="variable">@a</span>) &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="variable">@a</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.class1</span> &#123; <span class="selector-class">.mixin</span>(<span class="number">#FF0000</span>) &#125;</span><br><span class="line"><span class="selector-class">.class2</span> &#123; <span class="selector-class">.mixin</span>(<span class="number">#555</span>) &#125;</span><br></pre></td></tr></table></figure>
+<p>（3）Less提供类型检查函数</p>
+<p>less类型检查函数用于对参数类型的检查，检查是否符合条件，有如下的检查函数：</p>
+<ul>
+<li>iscolor、isnumber、isstring、iskeyword、isurl、ispixel、ispercentage、isem、isunit</li>
+</ul>
+<p><strong>Less CSS Guards</strong><br>Guard用于匹配表达式上的简单值或参数个数。 它应用于CSS选择器。 它是用于声明mixin并立即调用它的语法。 要成功地引出 if 类型语句; 将此功能与功能＆结合使用，您可以将多个guards分组。</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@usedScope:</span> global;</span><br><span class="line"><span class="selector-class">.mixin</span>() &#123;</span><br><span class="line">  <span class="variable">@usedScope:</span> mixin;</span><br><span class="line">  <span class="selector-class">.cont</span> <span class="keyword">when</span> (<span class="variable">@usedScope</span>=global) &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: red;</span><br><span class="line">    <span class="attribute">color</span>: black;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.style</span> <span class="keyword">when</span> (<span class="variable">@usedScope</span>=mixin) &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: blue;</span><br><span class="line">    <span class="attribute">color</span>: white;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable">@usedScope:</span> mixin;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.mixin</span>();</span><br></pre></td></tr></table></figure>
+<p><strong>Less 循环</strong></p>
+<p>Loops语句允许我们多次执行一个语句或一组语句。 当递归mixin与 <strong>Guard表达式</strong>和<strong>模式匹配</strong>组合时，可以创建各种迭代/循环结构。 下面是一个简单的例子：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cont</span>(<span class="variable">@count</span>) <span class="keyword">when</span>(<span class="variable">@count</span>&gt;<span class="number">0</span>)&#123;<span class="comment">/*将会循环7次*/</span></span><br><span class="line">    <span class="selector-class">.cont</span>((<span class="variable">@count</span> - <span class="number">1</span>));<span class="comment">/*这里的@count - 1必须中间要有空格，不然less编译器会把它解释为一个@count-1变量，因此会报找不到变量申明错误，很不科学？？？？？头大*/</span></span><br><span class="line">    <span class="attribute">width</span>:(<span class="number">25px</span>*<span class="variable">@count</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">    <span class="selector-class">.cont</span>(<span class="number">7</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译后的结果为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">25px</span>;<span class="attribute">width</span>: <span class="number">50px</span>;<span class="attribute">width</span>: <span class="number">75px</span>; <span class="attribute">width</span>: <span class="number">100px</span>;<span class="attribute">width</span>: <span class="number">125px</span>;<span class="attribute">width</span>: <span class="number">150px</span>;<span class="attribute">width</span>: <span class="number">175px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Less合并</strong></p>
+<p>它是LESS的一个特性，它允许使用单个属性从多个属性中为逗号或空格分隔列表添加值。 它可以用于背景和变换属性。如下所示：</p>
+<p>（1）less合并逗号：comma（它添加属性值到最后）</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.myfunc</span>() &#123;</span><br><span class="line">  <span class="selector-tag">box-shadow</span>+: <span class="selector-tag">5px</span> <span class="selector-tag">5px</span> <span class="selector-tag">5px</span> <span class="selector-tag">grey</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.class</span> &#123;</span><br><span class="line">  <span class="selector-class">.myfunc</span>();</span><br><span class="line">  <span class="selector-tag">box-shadow</span>+: <span class="selector-tag">0</span> <span class="selector-tag">0</span> <span class="selector-tag">5px</span> <span class="selector-id">#f78181</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 编译后的结果为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.class</span> &#123;</span><br><span class="line">  <span class="attribute">box-shadow</span>: <span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> grey, <span class="number">0</span> <span class="number">0</span> <span class="number">5px</span> <span class="number">#f78181</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（2）less合并空间：space（这是merge的另一个特性，它添加了属性值和空格）</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.mixin</span>() &#123;</span><br><span class="line">  <span class="selector-tag">transform</span>+<span class="selector-tag">_</span>: <span class="selector-tag">scale</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.class</span> &#123;</span><br><span class="line">  <span class="selector-class">.mixin</span>();</span><br><span class="line">  <span class="selector-tag">transform</span>+<span class="selector-tag">_</span>: <span class="selector-tag">rotate</span>(<span class="number">2deg</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*合并使用 + 或 + _ 标志来避开每个连接上意外的连接。 transform 属性修改CSS格式化模型的空间，并可用于旋转，缩放，移动等元素。*/</span></span><br></pre></td></tr></table></figure>
+<p>编译后的结果为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.class</span> &#123;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">scale</span>(1) <span class="built_in">rotate</span>(2deg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>最后的一部分就是LESS函数了</strong></p>
+<p>Less提供了很多的函数供使用，大致分为了</p>
+<ul>
+<li><p>字符串函数：</p>
+<p>（1）escapse（逃逸）：它通过对特殊字符使用URL编码来对字符串或信息进行编码。 您无法编码一些字符，例如<strong>，</strong>， <strong>/</strong> ，<strong>？</strong> ，<strong>@</strong> ，<strong>＆amp;</strong> ， <strong>+</strong> ，<strong>〜</strong>，<strong>！</strong> ， <strong>$</strong> ，<strong>\’</strong>和您可以编码的一些字符，例如 <strong>\</strong> ，<strong>#</strong>， <strong>&gt; ^</strong> ，<strong>(</strong>，<strong>)</strong>， <strong>{</strong>，<strong>}</strong> ，<strong>:</strong> &gt;，<strong>＆gt;</strong> ，<strong>，] ， [和 = 。</strong> </p>
+<p>（2）e ：它是一个字符串函数，它使用string作为参数，并返回不带引号的信息。它是一个CSS转义，它使用<em>〜“一些内容”</em>转义的值和数字作为参数。 </p>
+<p>（3）% format ：此函数格式化一个字符串。 它可以写成以下格式:  %(string，arguments …)  </p>
+<p>（4）replace：它用于替换字符串中的文本。 它使用一些参数： </p>
+<ul>
+<li><strong>string</strong> :它搜索字符串并替换。</li>
+<li><strong>pattern</strong> :它搜索正则表达式模式。</li>
+<li><strong>replacement</strong> :它替换与模式匹配的字符串。</li>
+<li><strong>flags</strong> :这些是可选的正则表达式标志。</li>
+</ul>
+</li>
+<li><p>列表函数：<strong>Length</strong> 、Extract</p>
+</li>
+<li><p>数学函数：<strong>ceil</strong> 、<strong>floor</strong> 、<strong>percentage</strong> 、<strong>round</strong> 、<strong>sqrt</strong> 、<strong>abs</strong> 、<strong>sin</strong> 、<strong>asin</strong>  、<strong>cos</strong>  、<strong>acos</strong>  、<strong>tan</strong>  、<strong>atan</strong> 、<strong>pi</strong>  、 <strong>pow</strong>  、<strong>mod</strong>  、<strong>min</strong> 、<strong>max</strong> </p>
+</li>
+<li><p>类型函数：<strong>isnumber</strong>  、<strong>isstring</strong> 、<strong>iscolor</strong>  、<strong>iskeyword</strong> 、<strong>isurl</strong>  、<strong>ispixel</strong> 、<strong>isem</strong>  、<strong>ispercentage</strong> 、<strong>isunit</strong>  、<strong>isruleset</strong> </p>
+</li>
+<li><p>颜色定义函数：<strong>rgb</strong>  、<strong>rgba</strong>  、<strong>argb</strong>  、<strong>hsl</strong>  、<strong>hsla</strong>  、<strong>hsv</strong>  、<strong>hsva</strong> </p>
+</li>
+<li><p>颜色通道函数：<strong>hue</strong>  、saturation 、<strong>lightness</strong> 、<strong>hsvhue</strong>  、<strong>hsvsaturation</strong>  、<strong>hsvvalue</strong>  、<strong>red</strong> 、<strong>green</strong> 、<strong>blue</strong> 、<strong>alpha</strong> 、<strong>luma</strong>  、<strong>luminance</strong> </p>
+</li>
+<li><p>颜色操作：<strong>saturate</strong> 、<strong>desaturate</strong>  、<strong>lighten</strong> 、 <strong>darken</strong>、 <strong>fadein、</strong>  <strong>fadeout、</strong>  <strong>fade、</strong> <strong>spin</strong> 、<strong>mix</strong> 、 <strong>tint</strong> 、<strong>shade</strong> 、<strong>greyscale</strong>、 <strong>contrast</strong> </p>
+</li>
+<li><p>颜色混合函数：<strong>multiply</strong> 、<strong>screen</strong>、 <strong>overlay、</strong> <strong>softlight、</strong> <strong>hardlight</strong> 、<strong>difference</strong>、 <strong>exclusion</strong> 、<strong>average</strong>、  <strong>negation</strong> </p>
+</li>
+<li><p>其它函数：<strong>color</strong> 、<a href="https://www.w3cschool.cn/less/image_size.html" target="_blank" rel="noopener"><strong>image - size</strong> </a>、 <a href="https://www.w3cschool.cn/less/image_width.html" target="_blank" rel="noopener"><strong>image - width</strong> </a> 、<strong>image-height</strong> 、<strong>convert**</strong>data - uri<strong> 、 </strong>default<strong> </strong>unit<strong>  [</strong>get - unit<strong> ](<a href="https://www.w3cschool.cn/less/get_unit.html" target="_blank" rel="noopener">https://www.w3cschool.cn/less/get_unit.html</a>) 、[</strong>svg - gradient**](<a href="https://www.w3cschool.cn/less/svg_gradient.html" target="_blank" rel="noopener">https://www.w3cschool.cn/less/svg_gradient.html</a>)</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+	
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/15/前端性能优化篇/" rel="next" title="前端性能优化篇">
+                <i class="fa fa-chevron-left"></i> 前端性能优化篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/15/javaScript通过原型链实现继承/" rel="prev" title="javaScript通过原型链实现继承">
+                javaScript通过原型链实现继承 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/HEAD.png"
+                alt="LQ55" />
+            
+              <p class="site-author-name" itemprop="name">LQ55</p>
+              <p class="site-description motion-element" itemprop="description">life of LQ55</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/LQ55" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/lq15310444798" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:2276264677@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LESS学习笔记"><span class="nav-number">1.</span> <span class="nav-text">LESS学习笔记</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LQ55</span>
+
+  
+</div>
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div> -->
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'LQ55',
+            repo: 'LQ55.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'a8744839416635b6a1e4262fd0a8f1f557c357b4',
+            
+                client_id: 'aa78c7fec2ea4b77c673'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("pHNi4xG9QkdEclsNcORxGaWQ-gzGzoHsz", "rFsXPfGddrWoczvBg0lrQJW6");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
