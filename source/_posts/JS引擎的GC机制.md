@@ -1,3 +1,11 @@
+---
+title: JS引擎的GC机制
+categories: 
+- 前端相关技术
+tags:
+- js的GC
+---
+
 ### javaScript垃圾回收小记
 
 文章参考：https://segmentfault.com/a/1190000015641168
