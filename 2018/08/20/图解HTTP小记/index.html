@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="###图解HTTP小记 （1）HTTP协议和TCP/IP协议族内的其它众多协议相同，用于客户端和服务器端的通信。 （2）HTTP协议规定，请求是从客户端发出。（换句话说就是请求是先从客户端开始建立，服务器在收到请求之前不会有答复） （3）请求和响应的报文格式 请求报文格式：请求报文由请求方法、请求URI、协议版本、可选的首部字段和内容实体组成。 一个简单的请求报文： 1234567POST /fo">
+<meta name="keywords" content="blog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图解HTTP小记">
+<meta property="og:url" content="http://yoursite.com/2018/08/20/图解HTTP小记/index.html">
+<meta property="og:site_name" content="CODE_LIFE">
+<meta property="og:description" content="###图解HTTP小记 （1）HTTP协议和TCP/IP协议族内的其它众多协议相同，用于客户端和服务器端的通信。 （2）HTTP协议规定，请求是从客户端发出。（换句话说就是请求是先从客户端开始建立，服务器在收到请求之前不会有答复） （3）请求和响应的报文格式 请求报文格式：请求报文由请求方法、请求URI、协议版本、可选的首部字段和内容实体组成。 一个简单的请求报文： 1234567POST /fo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-20T09:07:16.566Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="图解HTTP小记">
+<meta name="twitter:description" content="###图解HTTP小记 （1）HTTP协议和TCP/IP协议族内的其它众多协议相同，用于客户端和服务器端的通信。 （2）HTTP协议规定，请求是从客户端发出。（换句话说就是请求是先从客户端开始建立，服务器在收到请求之前不会有答复） （3）请求和响应的报文格式 请求报文格式：请求报文由请求方法、请求URI、协议版本、可选的首部字段和内容实体组成。 一个简单的请求报文： 1234567POST /fo">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/20/图解HTTP小记/"/>
+
+
+
+
+
+  <title>图解HTTP小记 | CODE_LIFE</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2188cdc93b6b2500ed3178182eacc884";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+</head>
+
+  	 <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("pHNi4xG9QkdEclsNcORxGaWQ-gzGzoHsz", "rFsXPfGddrWoczvBg0lrQJW6");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = $(document.getElementById(url)).text() + ': 0';
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+});
+</script>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CODE_LIFE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">LQ55的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/20/图解HTTP小记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LQ55">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/HEAD.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CODE_LIFE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">图解HTTP小记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-20T09:07:16+00:00">
+                2018-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HTTP/" itemprop="url" rel="index">
+                    <span itemprop="name">HTTP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/20/图解HTTP小记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/08/20/图解HTTP小记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/08/20/图解HTTP小记/" class="leancloud_visitors" data-flag-title="图解HTTP小记">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>###图解HTTP小记</p>
+<p>（1）HTTP协议和TCP/IP协议族内的其它众多协议相同，用于客户端和服务器端的通信。</p>
+<p>（2）HTTP协议规定，请求是从客户端发出。（换句话说就是请求是先从客户端开始建立，服务器在收到请求之前不会有答复）</p>
+<p>（3）请求和响应的报文格式</p>
+<p>请求报文格式：请求报文由请求方法、请求URI、协议版本、可选的首部字段和内容实体组成。</p>
+<p>一个简单的请求报文：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/form/entry</span> HTTP/1.1</span><br><span class="line"><span class="attribute">HOST:hackr.jp</span></span><br><span class="line"><span class="attribute">Connection:keep-alive</span></span><br><span class="line"><span class="attribute">Content-Type:application/x-www-form-urlencoded</span></span><br><span class="line"><span class="attribute">Content-length:16</span></span><br><span class="line"><span class="attribute"></span></span><br><span class="line">name=ueno&amp;age=37</span><br></pre></td></tr></table></figure>
+<p>如上体所示就是一个简单的POST请求报文的格式：</p>
+<p>第一行中的<code>POST</code>表示请求的方法名称，除了POST还有GET、HEADE、PUT等等。<code>/form/entry</code>表示请求的URI。<code>HTTP/1.1</code>表示请求所使用的协议版本，当前使用的协议版本为HTTP/1.1。后面紧跟着就是请求所携带的首部字段，如<code>HOST:hackr.jp</code>、<code>Connection:keep-alive</code>、<code>Content-Type:application/w-www-form-urlencode</code>，首部字段后很多，这里就不一一列举了。在后面的<code>name=ueno&amp;age=37</code>就是请求体，请求体是携带请求数据的地方，虽然在其它地方也可以携带请求数据。</p>
+<p>响应报文的格式 ：响应报文基本上有协议版本、状态吗（表示请求成果或者失败的数字代码）、用于解释状态码的原因短语、可选的响应首部字段以及实体主体构成。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 <span class="number">200</span> OK</span><br><span class="line">Date:Tue, 10 Jul 2018 06:50:15 GMT</span><br><span class="line"><span class="attribute">Content-Length:362</span></span><br><span class="line"><span class="attribute">Content-Type:text/html</span></span><br><span class="line"><span class="attribute"></span></span><br><span class="line"><span class="attribute">&lt;html&gt;</span></span><br><span class="line">	.....</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>上面是一个简单的响应报文的格式。记住在资源实体主体和响应首部之间是有一个空行分开的。</p>
+<p>（4）HTTP是无状态协议，就是在HTTP这个级别，对于请求或者响应都不做持久化处理，这样做的目的就是为了更快的处理大量的事务，确保协议的可伸缩性，同时减少服务器的CPU以及内存的消耗，因此就把HTTP协议设计的简单。</p>
+<p>（5）cookie技术出现的原因：HTTP是无状态协议，这样就无法判断是哪个用户的操作，也就是无法查看到用户的登陆状态，由此出现了cookie技术。服务器端通过在响应报文中加入Set-Cookie首部字段，通知客户端保存cookie。</p>
+<p>（6）指定访问URI的方式有很多</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">http://hackr.jp/index.html</span> HTTP/1.1</span><br><span class="line"></span><br><span class="line"><span class="keyword">GET</span> <span class="string">/index.html</span> HTTP/1.1</span><br><span class="line"><span class="attribute">HOST:hackr.jp</span></span><br></pre></td></tr></table></figure>
+<p>上面列举的两种指定URI的方式都可以请求到资源。第一种就是将完整URI放到请求行中，第二种就是在请求行中指定资源在服务器上的位置，而将主机的指定放到了HOST的首部字段中。</p>
+<p>（7）只是访问特定的服务器，而不访问资源，直接使用*代替URI</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">OPTIONS</span> <span class="string">*</span> HTTP/1.1</span><br><span class="line"><span class="attribute">HOST:www.hackr.jp</span></span><br></pre></td></tr></table></figure>
+<p>上面的例子也是查询服HTTP服务器支持的HTTP方法种类</p>
+<p>（8）TRACE方法一般和Max-Forward首部联合使用，Connect方法要求用隧道协议连接代理，实现用隧道协议进TCP通信。主要使用SSL（Secure Sockets Layer）安全套接字和(Transport Layer Secuity)传输层安全协议把内容加密后经网络隧道传输。</p>
+<p>（9）HTTP方法名区分大小写，需要使用大写。（请求头中）</p>
+<p>（10）持久连接keep-alive的特点是只要任意一方没有明确提出断开连接的意愿，则保持TCP连接状态。HTTP/1.1中所有的连接默认是持久连接</p>
+<p>（11）持久连接使得多数请求以管道化（pipelining）方式发送成为可能。管道化技术出现后，不用等待响应就可以直接发送下一个请求。这样就可以同时并发发送多个请求，不需要一个接着一个的等待响应了。</p>
+<p>（12）多部分对象集合（Multipart）</p>
+<p>发送的邮件里面可以包括正文，文件，图片等等，不同类型的信息，是因为采用了MIME（Multipurpose Internet Mail Extensions，多用途因特网邮件扩展）机制，允许处理图片、文本、视频等多个不同类型的数据。MIME扩展中使用一个叫做多部分对象集合（Multipart）的方法来容纳多分不同类型的数据。</p>
+<p>多部分对象集合包含的对象有multipart/form-data、multipart/byteranges</p>
+<ul>
+<li>multipart/form-data</li>
+</ul>
+<p>这个在Web表单文件上传的时候使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Content-Type:multipart/form-data;bundary=AaB03x;</span><br><span class="line"></span><br><span class="line">--AaB03x</span><br><span class="line">Content-Disposition:form-data;name=&quot;filed1&quot;</span><br><span class="line"></span><br><span class="line">Jon Blow</span><br><span class="line">--AaB03x</span><br><span class="line">Content-Disposition:form-data;name=&quot;price&quot;;filename=&quot;file1.txt&quot;</span><br><span class="line">Content-Type:text/plain</span><br><span class="line">...(file1.txt的数据)...</span><br><span class="line">--AaB03x</span><br><span class="line">(下面是其它种类的数据)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>multipart/byteranges</li>
+</ul>
+<p>状态吗206（Partial Content，部分内容）响应报文包含多个范围的内容时候使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 206 Partial Content</span><br><span class="line">Date:Fri, 13 Jul 2012 02:45:26 GMT</span><br><span class="line">Last-Modified:Fri, 31 Aug 2007 02:02:20 GMT</span><br><span class="line">Content-Type:multipart/byteranges;bundary=THIS_STRING_SEPARATES</span><br><span class="line"></span><br><span class="line">--THIS_STRING_SEPARATES</span><br><span class="line">Content-Type:application/pdf</span><br><span class="line">Content-Range:byte 500-9999/8000</span><br><span class="line"></span><br><span class="line">(...这里就是范围指定的数据...)</span><br><span class="line">--THIS_STRING_SEPARATES</span><br><span class="line">Content-Type:application/pdf</span><br><span class="line">Content-Range:byte 500-9999/8000</span><br><span class="line"></span><br><span class="line">(...这里就是范围指定的数据...)</span><br><span class="line">--THIS_STRING_SEPARATES--</span><br></pre></td></tr></table></figure>
+<p>多部分对象集合使用bundary字符串来划分多部分对象集合指明的各类实体，在bundary字符串指定的各各个实体的起始行之前插入–标记（–ABx），在集合对应的字符串的最后插入–标记（–ABx–）作为结束。</p>
+<p>同时多部分对象集合的每个部分都可以包含首部，同时还可以嵌套使用。</p>
+<p>（13）进行范围请求的时候使用Range首部字段指定请求范围</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Range:bytes=5001-10000（请求5001字节到10000字节的内容）</span><br><span class="line">或则使用</span><br><span class="line">Range:bytes=5001-（请求5001之后的全部）</span><br></pre></td></tr></table></figure>
+<p>当服务器无法响应范围请求的时候，就会返回200 OK状态码，并将所有数据返回。</p>
+<p>（14）通信数据转发程序：代理、网关、隧道</p>
+<p>代理：（应用程序），直接转发请求，不改变URI</p>
+<p>（15）Cache-Control头部信息</p>
+<p>public和private指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control:public</span><br><span class="line">注：表明其它用户也可以利用缓存</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control:private</span><br><span class="line">注：响应只会以特定的用户作为对象，缓存服务器对该特定的用户提供资源缓存服务，对于其它的用户发送过来的请求，代理服务器不会返回缓存</span><br></pre></td></tr></table></figure>
+<p>no-cache指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control:no-cache</span><br><span class="line">注：该指令不是说不缓存，而是为了防止从缓存中返回过期的资源。客户端发送的请求包含这个指令，则表示客户端不会接收缓存过的响应。中间的缓存服务器必须吧客户端的请求转发给源服务器，如果是服务器返回的响应中包含no-cache指令，缓存服务器不能缓存资源，资源服务器以后不再对缓存服务器提出的有效性进行确认。</span><br></pre></td></tr></table></figure>
+<p>no-store指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control:no-store</span><br><span class="line">注：真正指明缓存不能在本地缓存请求或响应的任意部分</span><br></pre></td></tr></table></figure>
+<p>max-age指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control:max-age=604800（单位/秒）</span><br><span class="line">注：客户端发送的请求中有max-age指令，如果判定缓存时间数值比指定的数值更小，那么客户端就接收缓存的资源。只指定max-age值为0，缓存服务器通常需要将请求转发给源服务器。当返回的响应包含max-age只能够时候，缓存服务器将不对资源的有效性再做确认，max-age代表资源保存为缓存的最长时间</span><br></pre></td></tr></table></figure>
+<p>s-maxage指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control:s-maxage=604800（单位/秒）</span><br><span class="line">注：s-maxage和max-age相同，s-maxage是适用于供多位用户使用的公共缓存服务器。也就是对于向同一用户重复返回响应的服务器来说，这个字段没有任何作用，使用了s-maxage，那么会直接忽略Expires首部字段以及max-zge指令的处理</span><br></pre></td></tr></table></figure>
+<p>min-fresh指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control:min-fresh=60（单位/秒）</span><br><span class="line">注：在60秒内，如果有超过有效期限的资源都无法作为响应返回了（相当于客户端向服务器询问：这缓存再过60秒还是否是新鲜的？）</span><br></pre></td></tr></table></figure>
+<p>max-stale指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control:max-stale=3000（单位/秒）</span><br><span class="line">注：使用max-stale指示缓存资源，即使过期了也照常接收，如果指令没有指定参数值，客户端都会接收响应，如果指令中指定了具体的参数值，那么即使过期，只要任然处于max-stale指定的时间内，任然会被客户端接收</span><br></pre></td></tr></table></figure>
+<p>only-if-cached指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control:only-if-cached</span><br><span class="line">注：表示客户端尽在缓存服务器本地缓存目标资源的情况下才要求其返回。也就是该指令要求缓存服务器不在重新加载响应，也不会再次确认资源有效性。如果请求缓存服务器本地缓存无响应，返回504 Gateway Timeout</span><br></pre></td></tr></table></figure>
+<p>mult-revalidate指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control:must-revalidate</span><br><span class="line">注：会向源服务器再次验证缓存是否任然有效，如果代理服务器无法连通源服务器获取有效资源，缓存必须给客户端一个504 Gateway Timeout。使用了must-revalidate会忽略请求的max-stale指令（即使已经在首部使用了max-stale，也不会有效果）</span><br></pre></td></tr></table></figure>
+<p>proxy-revalidate指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control:proxy-revalidate</span><br><span class="line">注：要求所有缓存服务器在接收到客户端带有该指令的请求返回之前，必须再次验证缓存的有效性</span><br></pre></td></tr></table></figure>
+<p>no-transform指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control:no-transform</span><br><span class="line">注：使用no-transform无论是在请求中，还是在响应中，都不能改变实体主体的媒体类型，这样可以防止缓存代理压缩图片等操作。</span><br></pre></td></tr></table></figure>
+<p>（16）Connection首部</p>
+<p>有两个作用，控制不再转发给代理的首部字段和管理持久连接。</p>
+<p>HTTP/1.1默认连接都是持久连接也就是Connection:keep-alive</p>
+<p>（17）Pragma首部是HTTP/1.1之前遗留的字段，仅仅用于向后兼容，也可以控制缓存，但是这个首部只属于客户端发送的请求中例如：Pragma:no-cache</p>
+<p>（18）与认证信息有关的两对头部信息</p>
+<ul>
+<li>Authorization和WWW-Authenticate</li>
+</ul>
+<p>这一对是发生在客户端与服务器的HTTP访问认证，服务器要求客户端提供相关认证信息会发送WWW-Authorization到客户端（伴随401状态码），客户端接收到后，通过Authorization首部字段向服务器提供证书相关认证信息</p>
+<p>服务器响应WWW-Authenticate要求认证</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WWW-Authenticate:Basic realm=&quot;Usagidesign Auth&quot;</span><br></pre></td></tr></table></figure>
+<p>客户端接收到后通过Authorization向服务器提供认证信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Authorization:Basic dWVub3NlbjpwYXNzd29yZA=</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Proxy-Authorization和Proxy-Authenticate</li>
+</ul>
+<p>这一对发生在客户端和代理之间HTTP访问认证，代理要求客户端提供认证信息,会发送Proxy-Authenticate到客户端，Proxy-Authenticate指定适用于访问请求URI所指定资源的认证方案（Basic或者是Digest）和带有参数提示的质询（challenge），客户端收到，通过Proxy-Authorization首部向代理提提供相关认证信息。</p>
+<p>代理响应Proxy-Authenticate要求认证</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Proxy-Authenticate:Basic realm=&quot;Usagidesign Auth&quot;</span><br></pre></td></tr></table></figure>
+<p>客户端接收到后通过proxy-authorization向代理提供认证信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Proxy-authorization:Basic dWVub3NlbjpwYXNzd29yZA=</span><br></pre></td></tr></table></figure>
+<p>（19）Vary首部可以对缓存行为进行控制，原服务器会向代理服务器传达关于本地缓存使用的方法的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Vary:Accept-Language</span><br><span class="line">注：代理服务器收到原服务器返回的带有Vary指定的响应之后，如果要再进行缓存，仅对请求中含有相同Vary指定首部字段的请求返回缓存，即使对相同的资源发起请求，但由于Vary指定的首部字段不相同，因此就需要从原服务器重新获取资源</span><br></pre></td></tr></table></figure>
+<p>（20）Allow实体首部用于通知客户端能够支持Request-URI指定资源的所有HTTP方法</p>
+<p>（21）HTTP的缺点：明文传输、不验证身份、无法证明报文的完整性 etc…（当然还有其它方面的）</p>
+<p>（22）HTTPs=HTTP+加密+认证+完整性保护</p>
+<p>（23）加密技术：</p>
+<ul>
+<li><p>近代加密算法都是公开的，密钥是保密的，使用加密算法进行加密，使用同一个密钥进行解密。这种叫做共享密钥加密，也叫对称密钥加密（这里的如何安全的发送密钥到对方让其对密文进行解密成难题）</p>
+</li>
+<li><p>使用两把密钥的公开密钥加密：公开密钥加密使用一非对称的密钥，一把叫做私钥，一把叫做公钥。这种方式是发送密文的一方先使用对方的公钥进行加密，对方收到密文后，使用自己的私钥进行解密。这种方式不需要发送用来解密的私钥，就不会有被盗的危险。</p>
+</li>
+<li><p>HTTPS采用混合加密机制：HTTPS采用共享密钥和公开密钥加密两者并用的混合加密机制。若密钥能够进行安全的交换，那么有可能会考虑仅仅使用公开密钥加密来进行通信，但是公开密钥加密与共享密钥加密相比，处理速度要慢。</p>
+<p>利用两者的优势，将多种方法混合起来用于通信。<strong>在交换密钥环节使用公开密钥进行加密，之后建立通信交换报文阶段使用共享密钥加密方式</strong>。</p>
+<p>如何安全的交换公钥？：使用有可信赖的第三方机构颁发的数字证书，服务器运营人员向数字证书机构提出公开密钥申请，数字证书机构在判明申请者身份之后，会对已经申请的公开密钥做数字签名，然后分配这个已经签名的公开密钥，并将该公开密钥放入公钥证书后绑定在一起。服务器将数字证书发送给客户端，以进行公开密钥加密方式通信。客户端接收到证书可以施一公数字证书机构公开密钥，对那张证书上的数字签名进行过验证，如果通过验证，可以明确两件事：第一服务器的公开密钥是真实有效的数字证书认证机构。第二服务器的公开密钥是值得信赖的。</p>
+</li>
+</ul>
+<p>（24）HTTPS的问题，使用SSL的时候，它的处理速度会变慢。分为两种：通信慢和处理慢</p>
+<ul>
+<li>通信慢是因为和HTTP相比，SSL通信部分消耗网络资源。而SSL通信部分还要对通信进行处理，所以时间上延长了，和之前HTTP相比，网络负载可能会变慢2到100倍。</li>
+<li>处理慢是因为HTTPS需要做服务端和客户端的双方的加密以及解密处理，消耗CPU和内存等硬件信息。</li>
+</ul>
+<p>（25）用户身份认证：HTTP/1.1使用的认证方式如下所示</p>
+<ul>
+<li>BASIC认证（基本认证）</li>
+</ul>
+<p>这是最基本的认证，账户密码是BASE64编码后的，毫无安全性可言。BSSIC认证是通过WWW-Authenticate和Authorization进行的，实际就是服务端要求进行身份认证，然后就在响应头中加入WWW-Authenticate首部，首部的内容是认证的方式（BASIC）以及Request-URI安全域字符串。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 401 Authorization Required</span><br><span class="line">Date:Mon, 19 sep 2011 08:38:32 GMT</span><br><span class="line">Server:Apache/2.2.3(Unix)</span><br><span class="line">WWW-Authenticate:Basic realm=&quot;Input Your Id and Password&quot;</span><br></pre></td></tr></table></figure>
+<p>服务端收到401后，输入自己的用户名密码之后自动的进行BASE64编码后通过Authorization首部发回服务端，进行验证，验证通过，就返回资源。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /private/ HTTP/1.1</span><br><span class="line">Host:hackr.jp</span><br><span class="line">Authorization:Basic Z3Vlc3Q6Z3Vlc3Q=</span><br></pre></td></tr></table></figure>
+<ul>
+<li>DIGEST认证（摘要认证）</li>
+</ul>
+<p>DIGEST认证是为了弥补BASIC认证的弱点，DIGEST认证采用质询/响应的方式（chllenge/response），但不会像BASIC认证那样直接发送明文密码。这种质询方式是一开始一方先会发送认证要求给另一方，接着使用从另外一方接收到的质询码计算生成响应码。最后将响应码发送给对方的方式。发送给对方的响应码是由质询码生成的，所以比起BASIC认证，密码泄露可能性就降低了。</p>
+<p>服务端要求认证，发送临时质询码（随机数,nonce）并告知需要认证的状态码401</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 401 Authorization Required</span><br><span class="line">WWW-Authenticate:Disest realm=&quot;DEGEST&quot;,</span><br><span class="line">nonce=&quot;MOSQZ0itBAA=44abb6784cc9cbfc605a5b0893d36f23de95fcff&quot;,algorithm=MD5,qop=&quot;auth&quot;</span><br></pre></td></tr></table></figure>
+<p>客户端发送通过质询码生成的响应码response</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /digest/ HTTP/1.1</span><br><span class="line">Authorization:Digest username=&quot;guest&quot;,realm=&quot;DEGEST&quot;,</span><br><span class="line">nonce=&quot;MOSQZ0itBAA=44abb6784cc9cbfc605a5b0893d36f23de95fcff&quot;,algorithm=MD5,uri=&quot;/degest/&quot; response=&quot;df56389ba3f7c52e9d775111fdfds5fsexyt&quot;,qop=&quot;auth&quot;,nc=00000001,cnonce=&quot;234sdwxngh334xhk&quot;</span><br></pre></td></tr></table></figure>
+<p>通过DEGEST进行认证，认证中首部必须包含usename、realm、nonce、uri和response的字段信息。DEGEST虽然提高了认证安全等级，但是与HTTPS相比任然比较弱。DEGEST认证提供防止密码被窃听的保护机制，但是并不存在防止用户伪装的保护机制。</p>
+<ul>
+<li>SSL客户端认证</li>
+</ul>
+<p>认证只要ID和密码正确就正确，但是如果ID和密码被盗，那么就被第三者冒充了，利用SSL客户端认证可以避免该情况发送。同样和前面的HTTPS通信过程一样，这里就是客户端提出请求，服务端要求证书认证，客户端发送证书，服务器验证证书，并取出里面的公钥，然后进行HTTPS加密通信。（这种有点昂贵）</p>
+<ul>
+<li>FormBase认证（基于表单的认证）</li>
+</ul>
+<p>多数情况下输入用于事先登陆的ID和密码后，发送给Web应用程序，基于认证结果来决定是否认证成功。基于表单的认证问题也有不少。基于表单的验证过程是如下的（通过Cookie管理Session（会话））</p>
+<p>客户端把用户名和密码输入后，通过POST方式提交，这个时候是通过HTTPS进行通信来进行HTML表单画面的显示和用户输入数据的发送。</p>
+<p>服务器发放用于识别用户的SessionID,验证通过就把用户认证状态与SessionID绑定后记录在服务器端，服务器端返回响应的时候在首部字段Set-Cookie中写入Session ID（所以如果Session ID被盗走，对方就可能伪装成为你的身份进行恶意操作了，所以Session ID使用比较难以推测的字符串，为了减轻XSS攻击，建议将现在Cookie内加上httponly属性）</p>
+<p>客户端接收到Session ID并将它放到Cookie中，下次请求的时候带上。</p>
+<p>总结自《图解HTTP》</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+	
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/20/小技巧/" rel="next" title="小技巧">
+                <i class="fa fa-chevron-left"></i> 小技巧
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/20/采用angularjs+requirejs+ui-route搭建单页面应用/" rel="prev" title="采用angularjs+requirejs+ui-route搭建单页面应用">
+                采用angularjs+requirejs+ui-route搭建单页面应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/HEAD.png"
+                alt="LQ55" />
+            
+              <p class="site-author-name" itemprop="name">LQ55</p>
+              <p class="site-description motion-element" itemprop="description">life of LQ55</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/LQ55" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/lq15310444798" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:2276264677@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LQ55</span>
+
+  
+</div>
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div> -->
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'LQ55',
+            repo: 'LQ55.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'a8744839416635b6a1e4262fd0a8f1f557c357b4',
+            
+                client_id: 'aa78c7fec2ea4b77c673'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("pHNi4xG9QkdEclsNcORxGaWQ-gzGzoHsz", "rFsXPfGddrWoczvBg0lrQJW6");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
