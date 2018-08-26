@@ -1,7 +1,7 @@
 ---
 title: Promise的resolve方法和reject方法
 categories: 
-- HTTP
+- ES6
 top: 7
 ---
 
